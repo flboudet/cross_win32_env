@@ -23,7 +23,7 @@ RUN    ln -s /usr/src/mxe/usr/${CROSS_TRIPLE}/include/winsock2.h /usr/src/mxe/us
     && ln -s /usr/src/mxe/usr/${CROSS_TRIPLE}/include/accctrl.h /usr/src/mxe/usr/${CROSS_TRIPLE}/include/AccCtrl.h   \
     && ln -s /usr/src/mxe/usr/${CROSS_TRIPLE}/include/aclapi.h /usr/src/mxe/usr/${CROSS_TRIPLE}/include/Aclapi.h     \
     && ln -s /usr/src/mxe/usr/${CROSS_TRIPLE}/include/ws2tcpip.h /usr/src/mxe/usr/${CROSS_TRIPLE}/include/WS2tcpip.h
-RUN cd ${COMPILEDIR} && curl http://archive.apache.org/dist/thrift/0.12.0/thrift-0.12.0.tar.gz | tar xz
+RUN mkdir -p ${COMPILEDIR} && cd ${COMPILEDIR} && curl http://archive.apache.org/dist/thrift/0.12.0/thrift-0.12.0.tar.gz | tar xz
 WORKDIR ${COMPILEDIR}/thrift-0.12.0
 RUN mkdir build_${CROSS_TRIPLE} \
     && cd build_${CROSS_TRIPLE} \
