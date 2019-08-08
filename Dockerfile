@@ -4,10 +4,10 @@ ENV COMPILEDIR /compile
 ENV INSTALLDIR /usr/src/mxe/usr/${CROSS_TRIPLE}
 ENV WINDRES /usr/src/mxe/usr/bin/${CROSS_TRIPLE}-windres
 
-# Add BOOST package to MXE
+# Add BOOST and NSIS packages to MXE
 WORKDIR /usr/src/mxe
-RUN sed -i 's/LOCAL_PKG_LIST := .*/LOCAL_PKG_LIST := boost/' settings.mk
-RUN make boost
+RUN sed -i 's/LOCAL_PKG_LIST := .*/LOCAL_PKG_LIST := boost nsis/' settings.mk
+RUN make boost nsis
 
 # OpenSSL installation
 #RUN cd /compile && curl https://www.openssl.org/source/openssl-1.1.1c.tar.gz | tar xz
