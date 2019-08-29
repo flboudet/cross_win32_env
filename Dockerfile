@@ -37,10 +37,16 @@ RUN mkdir build_${CROSS_TRIPLE} \
 #cmake -DCMAKE_FIND_ROOT_PATH=/usr/src/mxe/usr/x86_64-w64-mingw32.static/ -DBUILD_COMPILER=OFF -DBUILD_EXAMPLES=OFF -DBUILD_TUTORIALS=OFF -DBUILD_TESTING=OFF -DWITH_LIBEVENT=OFF -DWITH_SHARED_LIB=OFF -DWITH_STATIC_LIB=ON -DWITH_JAVA=OFF -DWITH_PYTHON=OFF -DWITH_PERL=OFF -DBoost_INCLUDE_DIRS=/usr/src/mxe/usr/x86_64-w64-mingw32.static/include/ ..
 #cmake -DCMAKE_FIND_ROOT_PATH=/usr/src/mxe/usr/x86_64-w64-mingw32.static/ -DBUILD_COMPILER=OFF -DBUILD_EXAMPLES=OFF -DBUILD_TUTORIALS=OFF -DBUILD_TESTING=OFF -DWITH_LIBEVENT=OFF -DWITH_SHARED_LIB=OFF -DWITH_STATIC_LIB=ON -DWITH_JAVA=OFF -DWITH_PYTHON=OFF -DWITH_PERL=OFF -DBoost_INCLUDE_DIRS=/usr/src/mxe/usr/x86_64-w64-mingw32.static/include/ ..
 
-#install THRIFT compiler
+# Install THRIFT compiler
 RUN apt install -y libboost-dev
 RUN ./configure --prefix=/usr/src/mxe/usr --disable-libs --disable-tests --disable-tutorial CC=gcc CXX=g++
 RUN make install
+
+# Install a recent LLVM
+# We want to llvm-dlltool which is able to generate MSVC-compatible import libs from def files
+RUN apt install -y llvm-6.0
+ENV LLVM_DLLTOOL /usr/bin/llvm-dlltool-6.0
+
 
 # compile thrift client
 # cmake -DCMAKE_CXX_STANDARD=11 -DCMAKE_MODULE_PATH=/sources/cmake_modules/ ..
